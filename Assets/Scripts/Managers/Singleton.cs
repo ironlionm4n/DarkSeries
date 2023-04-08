@@ -7,11 +7,17 @@ namespace Managers
     {
         private static T _instance;
         private static readonly object Lock = new ();
+        private static bool _isApplicationQuiting;
 
         public static T Instance
         {
             get
             {
+                if (_isApplicationQuiting)
+                {
+                    return null;
+                }
+                
                 if (_instance == null)
                 {
                     lock (Lock)
@@ -43,5 +49,12 @@ namespace Managers
                 DontDestroyOnLoad(gameObject);
             }
         }
+
+        private void OnApplicationQuit()
+        {
+            _isApplicationQuiting = true;
+        }
     }
+    
+    
 }
