@@ -11,12 +11,14 @@ namespace Managers
     {
         [Header("Jump Section"), SerializeField] private float jumpForce;
         [SerializeField] private GroundCheck groundCheck;
-        [SerializeField] private float jumpGravScale;
+        [SerializeField] private float fallingMultiplier;
         [SerializeField] private float groundGravScale;
-        [SerializeField] private float gravityDelta;
         private Rigidbody2D _playerRigidbody;
+        private bool _startedFalling;
+        private static readonly int Jump = Animator.StringToHash("Jump");
+        private static readonly int Land = Animator.StringToHash("Land");
 
-            private void Awake()
+        private void Awake()
         {
             _playerRigidbody = GetComponent<Rigidbody2D>();
         }
@@ -30,10 +32,17 @@ namespace Managers
         {
             if (!groundCheck.IsGrounded)
             {
-                _playerRigidbody.gravityScale = Mathf.MoveTowards(_playerRigidbody.gravityScale, jumpGravScale, gravityDelta);
+                if (_playerRigidbody.velocity.y < 0)
+                {
+                    _playerRigidbody.gravityScale = groundGravScale * fallingMultiplier;
+                    _startedFalling = true;
+                }
             }
-            else
+            else if(groundCheck.IsGrounded && _startedFalling)
             {
+                PlayerController.Instance.PlayerAnimator.SetTrigger(Land);
+                //PlayerController.Instance.PlayerAnimator.ResetTrigger(Land);
+                _startedFalling = false;
                 _playerRigidbody.gravityScale = groundGravScale;
             }
                 
@@ -42,8 +51,10 @@ namespace Managers
         private void OnJumpPerformed(InputAction.CallbackContext context)
         {
             if (!groundCheck.IsGrounded) return;
-
+            
             _playerRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            PlayerController.Instance.PlayerAnimator.SetTrigger(Jump);
+            //PlayerController.Instance.PlayerAnimator.ResetTrigger(Jump);
         }
 
     }

@@ -13,7 +13,7 @@ namespace PlayerScripts
 
         [SerializeField] private float airSpeed;
         [SerializeField] private float acceleration;
-        [SerializeField] private float airControlFactor;
+        [SerializeField, Range(0f, 1f)] private float airControlFactor;
         [SerializeField] private GroundCheck groundCheck;
 
         private Rigidbody2D _playerRigidbody;
@@ -56,7 +56,7 @@ namespace PlayerScripts
         private void FixedUpdate()
         {
             var currentVelocity = _playerRigidbody.velocity.x;
-            var desiredVelocity = Mathf.MoveTowards(currentVelocity, groundCheck.IsGrounded ? _targetVelocity : (_targetVelocity / 1.5f), acceleration * Time.deltaTime);
+            var desiredVelocity = Mathf.MoveTowards(currentVelocity, groundCheck.IsGrounded ? _targetVelocity : (_targetVelocity * airControlFactor), acceleration * Time.deltaTime);
             _playerRigidbody.velocity = new Vector2(desiredVelocity, _playerRigidbody.velocity.y);
         }
     }

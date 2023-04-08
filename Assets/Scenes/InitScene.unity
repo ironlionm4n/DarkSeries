@@ -2011,6 +2011,8 @@ MonoBehaviour:
     m_Bits: 64
   groundCheckPoint: {fileID: 1089380060}
   groundCheckRadius: 0.2
+  hitColor: {r: 1, g: 0.85813534, b: 0, a: 1}
+  noHitColor: {r: 0.15178525, g: 1, b: 0, a: 1}
 --- !u!1 &1201709801
 GameObject:
   m_ObjectHideFlags: 0
@@ -2077,9 +2079,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundSpeed: 10
-  airSpeed: 5
-  acceleration: 31
-  airControlFactor: 0.5
+  airSpeed: 8.5
+  acceleration: 25
+  airControlFactor: 0.66
   groundCheck: {fileID: 1089380061}
 --- !u!50 &1201709808
 Rigidbody2D:
@@ -2096,7 +2098,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -2114,11 +2116,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfbefb52879240db9320be37203aada6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 5
+  jumpForce: 10.5
   groundCheck: {fileID: 1089380061}
-  jumpGravScale: 10
-  groundGravScale: 0
-  gravityDelta: 0
+  fallingMultiplier: 2
+  groundGravScale: 2
 --- !u!1 &1739261026
 GameObject:
   m_ObjectHideFlags: 0
@@ -2242,7 +2243,7 @@ Camera:
   far clip plane: 5000
   field of view: 60
   orthographic: 1
-  orthographic size: 0.47544715
+  orthographic size: 7.6875
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
