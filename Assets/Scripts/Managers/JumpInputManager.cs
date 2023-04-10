@@ -11,7 +11,6 @@ namespace Managers
     {
         [Header("Jump Section"), SerializeField]
         private float jumpForce;
-
         [SerializeField] private GroundCheck groundCheck;
         [SerializeField] private float fallingMultiplier;
         [SerializeField] private float groundGravScale;
