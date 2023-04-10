@@ -29,6 +29,7 @@ namespace Controllers
             if (inputValue < 0)
             {
                 playerSpriteRenderer.flipX = true;
+                
             }
             else if (inputValue > 0)
             {
@@ -36,7 +37,7 @@ namespace Controllers
             }
 
         }
-
+        
         private void OnEnable()
         {
             HorizontalInputAction.Enable();

@@ -14,7 +14,6 @@ namespace Helpers.Player
         private void Update()
         {
             IsGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
-            Debug.Log(IsGrounded);
         }
 
         private void OnDrawGizmos()
