@@ -3087,6 +3087,7 @@ GameObject:
   - component: {fileID: 1032616800}
   - component: {fileID: 1032616799}
   - component: {fileID: 1032616802}
+  - component: {fileID: 1032616803}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -3195,6 +3196,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 122741665}
   audioMixer: {fileID: 24100000, guid: db235352f294fd846b254f85016614f3, type: 2}
+--- !u!114 &1032616803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1032616797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 305a0fffd52bb064fbd9a00baf73af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActionAsset: {fileID: -944628639613478452, guid: d3944f725d8e47f4dbf70dea578ed8be, type: 3}
+  attackCooldown: 1
 --- !u!1 &1089380059
 GameObject:
   m_ObjectHideFlags: 0

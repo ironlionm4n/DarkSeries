@@ -11,6 +11,7 @@ namespace Managers
     {
         [Header("Jump Section"), SerializeField]
         private float jumpForce;
+
         [SerializeField] private GroundCheck groundCheck;
         [SerializeField] private float fallingMultiplier;
         [SerializeField] private float groundGravScale;
@@ -20,8 +21,9 @@ namespace Managers
         private Rigidbody2D _playerRigidbody;
         private bool _startedFalling;
         private float _coyoteTimer;
-        private static readonly int Jump = Animator.StringToHash("Jump");
         private static readonly int Land = Animator.StringToHash("Land");
+        private static readonly int Vertical = Animator.StringToHash("Vertical");
+        private int _previousVerticalInt;
 
         private void Awake()
         {
@@ -43,12 +45,17 @@ namespace Managers
                 {
                     _startedFalling = true;
                     _playerRigidbody.gravityScale = groundGravScale * fallingMultiplier;
+                    if (_previousVerticalInt == PlayerController.Instance.PlayerAnimator.GetInteger(Vertical))
+                    {
+                        PlayerController.Instance.PlayerAnimator.SetInteger(Vertical, -1);
+                    }
                 }
             }
+
             else if (groundCheck.IsGrounded && _startedFalling)
             {
+                PlayerController.Instance.PlayerAnimator.SetInteger(Vertical, 0);
                 PlayerController.Instance.PlayerAnimator.SetTrigger(Land);
-                PlayerController.Instance.PlayerAnimator.ResetTrigger(Jump);
                 _coyoteTimer = 0;
                 _startedFalling = false;
                 _playerRigidbody.gravityScale = groundGravScale;
@@ -59,13 +66,14 @@ namespace Managers
         {
             if (groundCheck.IsGrounded || _coyoteTimer < coyoteTime)
             {
-                PlayerController.Instance.PlayerAnimator.ResetTrigger(Land);
                 /*_playerRigidbody.AddForce(
                     Vector2.up * jumpForce,
                     ForceMode2D.Impulse);*/
                 _playerRigidbody.gravityScale = groundGravScale;
                 _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, jumpForce);
-                PlayerController.Instance.PlayerAnimator.SetTrigger(Jump);
+
+                PlayerController.Instance.PlayerAnimator.SetInteger(Vertical, 1);
+
                 playerSfx.PlayAudioSource(jumpClip);
             }
         }
