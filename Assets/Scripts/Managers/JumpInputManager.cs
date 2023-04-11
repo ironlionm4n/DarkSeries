@@ -16,7 +16,7 @@ namespace Managers
         [SerializeField] private float fallingMultiplier;
         [SerializeField] private float groundGravScale;
         [SerializeField] private float coyoteTime;
-        [SerializeField] private PlayerWalkSFX playerSfx;
+        [SerializeField] private PlayerAudioSourceManager playerSfx;
         [SerializeField] private AudioClip jumpClip;
         private Rigidbody2D _playerRigidbody;
         private bool _startedFalling;

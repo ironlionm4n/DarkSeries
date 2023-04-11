@@ -7,6 +7,8 @@ namespace Managers
 {
     public class MySceneManager : Singleton<MySceneManager>
     {
+        private AsyncOperation _asyncOperation;
+        
         private void OnEnable()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
@@ -17,11 +19,9 @@ namespace Managers
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
-        private AsyncOperation _asyncOperation;
-
         public void StartGame()
         {
-            _asyncOperation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(1);
+            _asyncOperation = SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
         }
 
         private void Update()

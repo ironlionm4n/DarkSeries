@@ -14,6 +14,7 @@ public class AttackInputManager : Singleton<AttackInputManager>
     private float _cooldownTime;
     private InputAction _attackOneInputAction;
     private static readonly int AttackOne = Animator.StringToHash("AttackOne");
+
     private void Awake()
     {
         _attackOneInputAction = playerActionAsset.FindAction("AttackOne");
@@ -33,7 +34,9 @@ public class AttackInputManager : Singleton<AttackInputManager>
 
     private void OnAttackOnePerformed(InputAction.CallbackContext context)
     {
-        if (!PlayerController.Instance.PlayerAnimator.GetBool(AttackOne) && _cooldownTime > attackCooldown)
+        var animatorStateInfo = PlayerController.Instance.PlayerAnimator.GetCurrentAnimatorStateInfo(0);
+        if ((animatorStateInfo.IsName("Idle") || animatorStateInfo.IsName("RunRight")) &&
+            _cooldownTime > attackCooldown)
         {
             PlayerController.Instance.PlayerAnimator.SetBool(AttackOne, true);
             _cooldownTime = 0;
